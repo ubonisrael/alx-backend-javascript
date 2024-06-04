@@ -9,7 +9,7 @@ export default function cleanSet(set, startString) {
   const splitPosition = startString.length;
 
   for (const x of set.values()) {
-    if (x.startsWith(startString)) {
+    if (typeof x === 'string' && x.startsWith(startString)) {
       arr.push(x.slice(splitPosition));
     }
   }
