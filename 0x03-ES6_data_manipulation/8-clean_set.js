@@ -2,9 +2,9 @@ export default function cleanSet(set, startString) {
   const arr = [];
   const splitPosition = startString.length;
 
-  if (splitPosition !== 0) {
-    for (const x of set.values()) {
-      if (x.startsWith(startString)) {
+  for (const x of set.values()) {
+    if (x.startsWith(startString)) {
+      if (x !== x.slice(splitPosition)) {
         arr.push(x.slice(splitPosition));
       }
     }
