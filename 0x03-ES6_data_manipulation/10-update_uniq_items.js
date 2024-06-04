@@ -3,5 +3,7 @@ export default function updateUniqueItems(mapObject) {
     for (const [x, y] of mapObject) {
       if (y === 1) mapObject.set(x, 100);
     }
+  } else {
+    throw new Error('mapObject is not a Map');
   }
 }
