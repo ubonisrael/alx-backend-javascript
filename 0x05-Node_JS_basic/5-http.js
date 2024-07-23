@@ -3,7 +3,7 @@ const { readFile } = require('fs');
 
 function countStudents(path) {
   return new Promise((resolve, reject) => {
-    if (typeof path === 'undefined') {
+    if (!path) {
       reject(new Error('Cannot load the database'));
     } else {
       readFile(path, { encoding: 'utf8', flag: 'r' }, (err, data) => {
@@ -24,8 +24,7 @@ function countStudents(path) {
               }
             }
           }
-          let response = 'This is the list of our students\n';
-          response += `Number of students: ${total}\n`;
+          let response = `Number of students: ${total}\n`;
           for (const [key, value] of Object.entries(obj)) {
             response += `Number of students in ${key}: ${
               value.length
@@ -44,12 +43,15 @@ const app = http.createServer((req, res) => {
     res.end('Hello Holberton School!');
   }
   if (req.url === '/students') {
+    let response = 'This is the list of our students\n';
     countStudents(process.argv[2])
-      .then((response) => {
+      .then((resp) => {
+        response += resp;
         res.end(response);
       })
       .catch((err) => {
-        res.end(err.message);
+        response += err instanceof Error ? err.message : err.toString();
+        res.end(response);
       });
   }
 });
