@@ -41,21 +41,20 @@ function countStudents(path) {
 const app = Express();
 
 app.get('/', (req, res) => {
-  if (req.url === '/') {
-    res.end('Hello Holberton School!');
-  }
-  if (req.url === '/students') {
-    let response = 'This is the list of our students\n';
-    countStudents(process.argv[2])
-      .then((resp) => {
-        response += resp;
-        res.end(response);
-      })
-      .catch((err) => {
-        response += err instanceof Error ? err.message : err.toString();
-        res.end(response);
-      });
-  }
+  res.end('Hello Holberton School!');
+});
+
+app.get('/students', (req, res) => {
+  let response = 'This is the list of our students\n';
+  countStudents(process.argv[2])
+    .then((resp) => {
+      response += resp;
+      res.end(response);
+    })
+    .catch((err) => {
+      response += err instanceof Error ? err.message : err.toString();
+      res.end(response);
+    });
 });
 
 app.listen(1245);
