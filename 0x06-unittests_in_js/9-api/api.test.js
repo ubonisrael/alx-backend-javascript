@@ -10,3 +10,19 @@ describe("GET /", function () {
     })
   });
 });
+
+describe("GET /cart/:id", function () {
+  it("should return \"Payment methods for cart id\"", function (done) {
+    request('http://localhost:7865/cart/4', (error, response, body) => {
+        expect(response.statusCode).to.equal(200);
+        expect(body).to.equal('Payment methods for cart 4');
+        done();
+    })
+  });
+  it("should return 404 error", function (done) {
+    request('http://localhost:7865/cart/hello', (error, response, body) => {
+        expect(response.statusCode).to.equal(404);
+        done();
+    })
+  });
+});
